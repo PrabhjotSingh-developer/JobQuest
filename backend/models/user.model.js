@@ -1,34 +1,40 @@
 import mongoose, { mongo } from "mongoose";
-const userSchema = new mongoose.Schema({
-    fullname:{
-        type:String,
-        required:true
+const userSchema = new mongoose.Schema(
+  {
+    fullname: {
+      type: String,
+      required: true,
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    mobileNo:{
-        type:Number,
-        required:true
+    password:{
+      type:String,
+      required:true
     },
-    role:{
-        type:String,
-        enum:['student','recruiter'],
-        required:true
+    mobileNo: {
+      type: Number,
+      required: true,
     },
-    profile:{
-        bio:{type:String},
-        skills:[{type:String}],
-        resume:{type:String},
-        resumeOriginalName:{type:String},
-        company:{type:mongoose.Schema.Types.ObjectId,ref:'Company'}, // only for company applied
-        profilePic:{
-            type:String,
-            default:""
-        }
+    role: {
+      type: String,
+      enum: ["student", "recruiter"],
+      required: true,
     },
-    
-},{timestamps:true});
-export const User = mongoose.model("User",userSchema);
+    profile: {
+      bio: { type: String },
+      skills: [{ type: String }],
+      resume: { type: String },
+      resumeOriginalName: { type: String },
+      company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" }, // only for company applied
+      profilePic: {
+        type: String,
+        default: "",
+      },
+    },
+  },
+  { timestamps: true }
+);
+export const User = mongoose.model("User", userSchema);
