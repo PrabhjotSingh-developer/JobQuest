@@ -109,18 +109,18 @@ export const logout = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { email, bio, skills, mobileNo } = req.body;
+    const { email, bio, skills, mobileNo,fullname } = req.body;
     const file = req.file;
-    if (!email || !bio || !skills || mobileNo) {
-      return res.status(400).json({
-        message: "Something is missing",
-        success: false,
-      });
-    }
+    // if (!email || !bio || !skills || !mobileNo) {
+    //   return res.status(400).json({
+    //     message: "Something is missing",
+    //     success: false,
+    //   });
+    // }
 
     //   file ayega idhar
 
-    const skillsArray = skills.split(",");
+    const skillsArray = skills?.split(",");
     const userId = req.id; //middleware authentication
     let user = await User.findById(userId);
     if (!user) {
@@ -129,9 +129,15 @@ export const updateProfile = async (req, res) => {
         success: false,
       });
     }
-    user.fullname = fullname;
+    if(fullname)
+       user.fullname = fullname;
+    if(email)
     user.email = user.email;
+
+    if(mobileNo)
     user.mobileNo = mobileNo;
+
+   if(skills)
     user.profile.skills = skillsArray;
     //   resume comes later
     await user.save();
@@ -145,11 +151,11 @@ export const updateProfile = async (req, res) => {
         role: user.role,
         profile:user.profile
       };
-      return res.status(200,json({
+      return res.status(200).json({
         message:"Profile updated successfully",
         user,
         success:true
-      }))
+      })
   } catch (error) {
     console.log(error)
   }
