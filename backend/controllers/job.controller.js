@@ -124,4 +124,4 @@ export const getJobByAdmin = async(req,res)=>{
      } catch (error) {
         console.log(error);
      }
-}
+}   
