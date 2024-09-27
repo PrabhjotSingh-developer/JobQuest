@@ -1,5 +1,6 @@
 import { Application } from "../models/application.Model.js";
 import { Job } from "../models/job.model.js";
+
 export const applyJob = async (req, res) => {
   try {
     const userId = req.id;
@@ -45,3 +46,30 @@ export const applyJob = async (req, res) => {
     console.log(error);
   }
 };
+export const getAppliedJobs = async(req,res) =>{
+   try {
+      const userId = req.id;
+      const applications  = await Application.findById({applicant:userId}).sort({createdAt:-1}).populate({
+         path:"Job",
+         options:{sort:{createdAt:-1}},
+         populate:{
+             path:"Company",
+             options:{sort:{createdAt:-1}}
+         }
+      } )
+     if(!application)
+     {
+          return res.status(404).json({
+             message:"No Applications found",
+             success:false
+          })
+         }
+     return res.status(200).json({
+         applications,
+         success:true
+ 
+     })
+   } catch (error) {
+     console.log(error)
+   }
+}
