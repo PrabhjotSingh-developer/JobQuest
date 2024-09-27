@@ -73,3 +73,62 @@ export const getAppliedJobs = async(req,res) =>{
      console.log(error)
    }
 }
+// Admin can check how many user has applied the job
+export const getApplicants = async(req,res)=>{
+    try {
+        const jobId = req.param.id;
+        const job = await Job.findById(jobId).populate({
+            path:"applications",
+            options:{sort:{createAt:-1}},
+            populate:{
+                path:"applicant"
+            }
+        })
+        if(!job)
+        {
+             return res.status(400).json({
+                message:"Jobs not found",
+                success:false
+             })
+        }
+        return res.status(200).json({
+            job,
+            success:true
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+// update Status for admin 
+export const updateStatus = async(req,res)=>{
+    try {
+        const {status} = req.body;
+        const applicationId = req.params.id;
+        if(!status)
+        {
+             return res.status(400).json({
+                message:"Status is required",
+                success:false
+             })
+        }
+
+        // find the application by application id
+        const application = await Application.findOne({_id:applicationId});
+        if(!application)
+        {
+             return res.status(400).json({
+                message:"Application not found",
+                success:false
+             })
+        }
+        // update the status
+        application.status = status.toLowerCase();
+        await application.save();
+        return res.status(200).json({
+            message:"Status updated Successfully",
+            success:true
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
