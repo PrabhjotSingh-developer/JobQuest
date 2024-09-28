@@ -39,8 +39,9 @@ export const applyJob = async (req, res) => {
    if(!Job.applications){
     Job.applications = [] ; // initialize the array if empty
    }
-    Job.applications.push(newApplication._id);
-    await job.save();
+    job.applications.push(newApplication._id);
+     await job.save();
+
     return res.status(201).json({
       message: "Job applied Successfully",
       success: true,
@@ -79,7 +80,7 @@ export const getAppliedJobs = async(req,res) =>{
 // Admin can check how many user has applied the job
 export const getApplicants = async(req,res)=>{
     try {
-        const jobId = req.param.id;
+        const jobId = req.params.id;
         const job = await Job.findById(jobId).populate({
             path:"applications",
             options:{sort:{createAt:-1}},
@@ -125,7 +126,7 @@ export const updateStatus = async(req,res)=>{
              })
         }
         // update the status
-        application.status = status.toLowerCase();
+        application.status = status;
         await application.save();
         return res.status(200).json({
             message:"Status updated Successfully",
