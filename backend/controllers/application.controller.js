@@ -36,8 +36,11 @@ export const applyJob = async (req, res) => {
       applicant: userId,
     });
 
+   if(!Job.applications){
+    Job.applications = [] ; // initialize the array if empty
+   }
     Job.applications.push(newApplication._id);
-    await Job.save();
+    await job.save();
     return res.status(201).json({
       message: "Job applied Successfully",
       success: true,
@@ -49,15 +52,15 @@ export const applyJob = async (req, res) => {
 export const getAppliedJobs = async(req,res) =>{
    try {
       const userId = req.id;
-      const applications  = await Application.findById({applicant:userId}).sort({createdAt:-1}).populate({
-         path:"Job",
+      const applications  = await Application.find({applicant:userId}).sort({createdAt:-1}).populate({
+         path:'job',
          options:{sort:{createdAt:-1}},
          populate:{
-             path:"Company",
+             path:"company",
              options:{sort:{createdAt:-1}}
          }
       } )
-     if(!application)
+     if(!applications)
      {
           return res.status(404).json({
              message:"No Applications found",
@@ -132,3 +135,4 @@ export const updateStatus = async(req,res)=>{
         console.log(error)
     }
 }
+

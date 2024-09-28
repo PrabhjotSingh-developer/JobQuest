@@ -14,7 +14,7 @@ export const postJob = async (req, res) => {
       position,
       companyId,
     } = req.body;
-    console.log(typeof(req.id))
+   
     if (
       !title ||
       !description ||
@@ -106,7 +106,7 @@ export const getJobById = async(req,res) =>{
 export const getJobByAdmin = async(req,res)=>{
      try {
           const adminId = req.id;
-          console.log(adminId)
+        
           const jobs = await Job.find({createdBy:adminId});
 
           if(!jobs)
