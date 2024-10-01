@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-    <div className='w-[100%] overflow-x-hidden h-auto'> 
+    <div className=''> 
 
      <Navbar/>
     </div>

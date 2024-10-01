@@ -1,41 +1,53 @@
 import React, { useState } from "react";
-
+import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   const [showProfile, setShowProfile] = useState(false);
+  const user =false;
   return (
-    <div className="flex justify-between items-center px-10 py-5 h-[100%]">
-      <div className="logo">
+
+    <div className={`flex justify-between items-center px-4 sm:px-7 md:px-10 py-5 bg-white z-10   ${showProfile ?"":""}  `} >
+   
+      <div className="logo flex items-center gap-4 relative">
+      <div className="menuIcon sm:hidden">
+           <GiHamburgerMenu/>
+      </div>
         <h2 className="text-2xl font-semibold">
           Job <span className="text-red-600">Quest</span>
         </h2>
       </div>
-      <div className="menuLink items-center">
-        <ul className="flex gap-5">
+      <div className="menuLink items-center flex gap-8 ">
+        <ul className="flex sm:flex-row flex-col gap-5 absolute left-10 top-[10%] md:static" >
           <li>Home</li>
           <li>Jobs</li>
           <li>Browse</li>
         </ul>
-      </div>
-      {/* <div className="btns flex gap-5">
+        { !user &&
+           <div className="btns flex gap-5">
            <button>Login</button>
            <button>Sign Up</button>
-      </div> */}
-
-      <div className="avatar relative ">
+      </div>
+        }
+        
+      </div>
+    
+ 
+     
+ { user &&
+     <div className="avatar relative ">
         <div
           className="w-[45px] h-[45px] rounded-[50%] bg-black "
-          onClick={() => setTimeout(() => setShowProfile(!showProfile), 200)}
+          onClick={() =>setShowProfile(!showProfile)}
         ></div>
 
         <div
-          className={`links border-2 py-4  border-black absolute right-0  mt-4 px-4 w-[300px]  ${
-            showProfile ? "transalate-x-[0%]" : "translate-x-[200%]"
+          className={`links border-2 py-4  border-black absolute right-0  mt-4 px-4 w-[300px] z-[-8] ${
+            showProfile ? "top-[110%]" : "top-[-400%]"
           }`}
-          style={{ transition: " .2s linear" }}
+          style={{ transition: "top .2s linear" }}
         >
           <div
             className="absolute top-2 right-2 cursor-pointer  "
-            onClick={() => setTimeout(() => setShowProfile(!showProfile), 50)}
+            onClick={() =>setShowProfile(!showProfile)}
           >
             X
           </div>
@@ -52,6 +64,8 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+ }
+   
     </div>
   );
 };
