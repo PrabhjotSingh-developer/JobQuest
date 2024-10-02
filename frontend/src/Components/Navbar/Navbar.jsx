@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   const [showProfile, setShowProfile] = useState(false);
-  const user =false;
+  const [showMenubar,setShowMenubar] = useState(false)
+  const user =true;
   return (
 
     <div className={`flex justify-between items-center px-4 sm:px-7 md:px-10 py-5 bg-white z-10   ${showProfile ?"":""}  `} >
    
       <div className="logo flex items-center gap-4 relative">
       <div className="menuIcon sm:hidden">
-           <GiHamburgerMenu/>
+           <GiHamburgerMenu onClick={()=>setShowMenubar(!showMenubar)}/>
       </div>
         <h2 className="text-2xl font-semibold">
           Job <span className="text-red-600">Quest</span>
         </h2>
       </div>
       <div className="menuLink items-center flex gap-8 ">
-        <ul className="flex sm:flex-row flex-col gap-5 absolute left-10 top-[10%] md:static" >
+        <ul className={`flex sm:flex-row flex-col gap-5 absolute left-0 top-[9%] md:static bg-white sm:w-auto w-[100%] px-5 py-10 sm:py-0 h-[100vh] sm:h-auto ${showMenubar?"left-0":"left-[-100%]"}`} style={{transition:"left .2s"}} >
           <li>Home</li>
           <li>Jobs</li>
           <li>Browse</li>
