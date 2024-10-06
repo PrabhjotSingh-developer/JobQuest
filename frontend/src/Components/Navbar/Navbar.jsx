@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showMenubar,setShowMenubar] = useState(false)
-  const user =true;
+  const user =false;
   return (
 
     <div className={`flex justify-between items-center px-4 sm:px-7 md:px-10 py-5 bg-white z-10   ${showProfile ?"":""}  `} >
@@ -23,9 +24,9 @@ const Navbar = () => {
           <li>Browse</li>
         </ul>
         { !user &&
-           <div className="btns flex gap-5">
-           <button>Login</button>
-           <button>Sign Up</button>
+           <div className="btns flex gap-5 items-center">
+           <Link to="/login"><button>Login</button></Link>
+           <Link to="/signup"><button className="bg-blue-700 text-white px-4 py-2 rounded-[10%]">Sign Up</button></Link>
       </div>
         }
         

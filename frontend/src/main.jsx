@@ -10,11 +10,14 @@ import App from "./App.jsx";
 import "./index.css";
 import Layout from "./Components/Layout/Layout.jsx";
 import Login from "./Components/auth/Login.jsx";
+import SignUp from "./Components/auth/SignUp.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" />
       <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp/>} />
+
     </Route>
   )
 );
