@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 const SignUp = () => {
+  const [input, setInput] = useState({
+    fullname: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    role: "",
+    file: "",
+  });
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(input);
+    window.alert("sumbit successfullt")
+  };
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+  const changeFileHandler = (e) => {
+    setInput({ ...input, file: e.target.files?.[0]?.name });
+  };
   return (
     <div className="flex items-center  justify-center mt-7 sm:mt-12 lg:mt-8">
       <form
+        onSubmit={submitHandler}
         action=""
         className="flex  justify-center  flex-col gap-4 border-2 w-[95%] md:w-[80%] lg:w-[40%] border-gray-300 rounded-[10%] py-10 px-10 md:px-36"
       >
@@ -20,6 +40,8 @@ const SignUp = () => {
             id="fullname"
             placeholder="John Model "
             className="outline-none border-2 border-gray-700 px-1"
+            value={input.fullname}
+            onChange={changeEventHandler}
           />
         </div>
         <div className="flex-col flex gap-2">
@@ -31,6 +53,8 @@ const SignUp = () => {
             required={true}
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="abc@gmail.com"
+            onChange={changeEventHandler}
+            value={input.email}
           />
         </div>
         <div className="flex-col flex gap-2">
@@ -41,6 +65,8 @@ const SignUp = () => {
             id="phoneNumber"
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="Enter Mobile Number"
+            onChange={changeEventHandler}
+            value={input.phoneNumber}
           />
         </div>
         <div className="flex-col flex gap-2">
@@ -51,6 +77,8 @@ const SignUp = () => {
             id="password"
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="Enter Password"
+            onChange={changeEventHandler}
+            value={input.password}
           />
         </div>
         <div className="flex-col flex gap-2">
@@ -58,11 +86,25 @@ const SignUp = () => {
           <div className="flex gap-4">
             <div className="flex gap-2">
               <label htmlFor="recruiter">Recuriter</label>
-              <input type="radio" name="role" id="recruiter" />
+              <input
+                type="radio"
+                name="role"
+                id="recruiter"
+                value="recruiter"
+                checked={input.role === "recruiter"}
+                onChange={changeEventHandler}
+              />
             </div>
             <div className="flex gap-2">
               <label htmlFor="employer">Employer</label>
-              <input type="radio" name="role" id="employer" />
+              <input
+                type="radio"
+                name="role"
+                id="employer"
+                value="employer"
+                checked={input.role === "employer"}
+                onChange={changeEventHandler}
+              />
             </div>
           </div>
         </div>
@@ -74,7 +116,7 @@ const SignUp = () => {
             name="profile"
             id="profile"
             className="outline-none border-2 "
-            placeholder="Enter Password"
+            onChange={changeFileHandler}
           />
         </div>
         <div>
@@ -85,7 +127,12 @@ const SignUp = () => {
           />
         </div>
         <div>
-              <span>Already have an account ? <Link to="/login" className="text-blue-900">Login</Link> </span>
+          <span>
+            Already have an account ?{" "}
+            <Link to="/login" className="text-blue-900">
+              Login
+            </Link>{" "}
+          </span>
         </div>
       </form>
     </div>

@@ -1,16 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 const Login = () => {
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+    role: "",
+  });
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+  const submitHandler = (e) =>{
+    e.preventDefault()
+    console.log(input)
+  }
   return (
     <div className="flex items-center  justify-center mt-7 sm:mt-12 lg:mt-8">
       <form
+        onSubmit={submitHandler}
         action=""
         className="flex  justify-center  flex-col gap-4 border-2 w-[95%] md:w-[80%] lg:w-[40%] border-gray-300 rounded-[10%] py-10 px-10 md:px-36"
       >
         <div>
           <h1 className="text-4xl">Login Now</h1>
         </div>
-        
+
         <div className="flex-col flex gap-2">
           <label htmlFor="email">Email</label>
           <input
@@ -20,9 +33,11 @@ const Login = () => {
             required={true}
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="abc@gmail.com"
+            value={input.email}
+            onChange={changeEventHandler}
           />
         </div>
-       
+
         <div className="flex-col flex gap-2">
           <label htmlFor="password">Password</label>
           <input
@@ -31,6 +46,8 @@ const Login = () => {
             id="password"
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="Enter Password"
+            value={input.password}
+            onChange={changeEventHandler}
           />
         </div>
         <div className="flex-col flex gap-2">
@@ -38,15 +55,29 @@ const Login = () => {
           <div className="flex gap-4">
             <div className="flex gap-2">
               <label htmlFor="recruiter">Recuriter</label>
-              <input type="radio" name="role" id="recruiter" />
+              <input
+                type="radio"
+                name="role"
+                id="recruiter"
+                value="recruiter"
+                checked={input.role === "recruiter"}
+                onChange={changeEventHandler}
+              />
             </div>
             <div className="flex gap-2">
               <label htmlFor="employer">Employer</label>
-              <input type="radio" name="role" id="employer" />
+              <input
+                type="radio"
+                name="role"
+                id="employer"
+                value="employer"
+                checked={input.role === "employer"}
+                onChange={changeEventHandler}
+              />
             </div>
           </div>
         </div>
-       
+
         <div>
           <input
             type="submit"
@@ -55,11 +86,17 @@ const Login = () => {
           />
         </div>
         <div>
-              <span> New to Website ? <Link to="/signup" className="text-blue-900">Register Here</Link> </span>
+          <span>
+            {" "}
+            New to Website ?{" "}
+            <Link to="/signup" className="text-blue-900">
+              Register Here
+            </Link>{" "}
+          </span>
         </div>
       </form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
