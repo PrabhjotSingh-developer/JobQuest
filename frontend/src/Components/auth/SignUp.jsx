@@ -11,7 +11,17 @@ const SignUp = () => {
   });
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(input);
+    for(let key in input)
+    {
+        // console.log(key);
+        if(input[key]==="")
+        { 
+            alert("All Fields are required ");
+            return 
+        }
+        // console.log(input[key])
+    }
+  
     window.alert("sumbit successfullt")
   };
   const changeEventHandler = (e) => {
