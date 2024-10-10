@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { USER_API_END_POINT } from "../../utils/Constant";
+import { toast } from "react-toastify";
+import axios from 'axios'
 const SignUp = () => {
+  const navigate = useNavigate()
   const [input, setInput] = useState({
     fullname: "",
     email: "",
-    phoneNumber: "",
+    mobileNo: "",
     password: "",
     role: "",
     file: "",
@@ -13,15 +17,43 @@ const SignUp = () => {
     e.preventDefault();
     for(let key in input)
     {
-        // console.log(key);
-        if(input[key]==="")
+       
+        if(input[key]==="" && key !=="file")
         { 
-            alert("All Fields are required ");
+          
+            toast.error("All fields are required")       
             return 
+                  
         }
         // console.log(input[key])
     }
-  
+    let formData = new FormData()
+    formData.append("fullname",input.fullname);
+    formData.append("email",input.email);
+    formData.append("mobileNo",input.mobileNo);
+    formData.append("password",input.password);
+    formData.append("role",input.role);
+    if(input.file!=="")
+      formData.append("file",input.file);
+
+
+    try {
+      
+      const res = await axios.post(`${USER_API_END_POINT}/register`,formData,{
+        headers:{
+          "Content-Type":"multipart/form-data"
+        },
+        withCredentials:true
+      });
+      
+      toast.success("Signup Successfull")
+      if(res.data.success)
+         navigate("/login")
+
+    } catch (error) {
+      toast.error("Server not found")
+       console.log(error)
+    }
     window.alert("sumbit successfullt")
   };
   const changeEventHandler = (e) => {
@@ -68,15 +100,15 @@ const SignUp = () => {
           />
         </div>
         <div className="flex-col flex gap-2">
-          <label htmlFor="phoneNumber">Enter Phone Number</label>
+          <label htmlFor="mobileNo">Enter Phone Number</label>
           <input
             type="text"
-            name="phoneNumber"
-            id="phoneNumber"
+            name="mobileNo"
+            id="mobileNo"
             className="outline-none border-2 border-gray-700 px-1"
             placeholder="Enter Mobile Number"
             onChange={changeEventHandler}
-            value={input.phoneNumber}
+            value={input.mobileNo}
           />
         </div>
         <div className="flex-col flex gap-2">

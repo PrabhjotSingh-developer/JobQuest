@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate()
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -9,7 +12,7 @@ const Login = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  const submitHandler = (e) =>{
+  const submitHandler = async(e) =>{
     e.preventDefault()
     for(let key in input)
       {
@@ -20,6 +23,23 @@ const Login = () => {
               return 
           }
           // console.log(input[key])
+      }
+      try {
+      
+        const res = await axios.post(`${USER_API_END_POINT}/login`,input,{
+          headers:{
+            "Content-Type":"application/json"
+          },
+          withCredentials:true
+        });
+        
+        toast.success("Signup Successfull")
+        if(res.data.success)
+           navigate("/")
+  
+      } catch (error) {
+        toast.error("Server not found")
+         console.log(error)
       }
     console.log(input)
   }

@@ -11,6 +11,8 @@ import "./index.css";
 import Layout from "./Components/Layout/Layout.jsx";
 import Login from "./Components/auth/Login.jsx";
 import SignUp from "./Components/auth/SignUp.jsx";
+import {ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -23,6 +25,9 @@ const router = createBrowserRouter(
 );
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+   
+
+    <ToastContainer/>
     <RouterProvider router={router} />
   </StrictMode>
 );

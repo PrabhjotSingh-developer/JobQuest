@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
   try {
     const { fullname, email, mobileNo, password, role } = req.body;
+    console.log(req.body)
     if (!fullname || !email || !mobileNo || !password || !role) {
       return res.status(400).json({
         message: "Something is missing",
