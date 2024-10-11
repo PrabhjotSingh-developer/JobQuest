@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {toast } from 'react-toastify'
+import { USER_API_END_POINT } from "../../utils/Constant.js";
+
 const Login = () => {
   const navigate = useNavigate()
   const [input, setInput] = useState({
@@ -38,7 +41,8 @@ const Login = () => {
            navigate("/")
   
       } catch (error) {
-        toast.error("Server not found")
+
+        toast.error(error.response.data.message)
          console.log(error)
       }
     console.log(input)
@@ -84,13 +88,13 @@ const Login = () => {
           <label htmlFor="">Select Role</label>
           <div className="flex gap-4">
             <div className="flex gap-2">
-              <label htmlFor="recruiter">Recuriter</label>
+              <label htmlFor="student">student</label>
               <input
                 type="radio"
                 name="role"
-                id="recruiter"
-                value="recruiter"
-                checked={input.role === "recruiter"}
+                id="student"
+                value="student"
+                checked={input.role === "student"}
                 onChange={changeEventHandler}
               />
             </div>
