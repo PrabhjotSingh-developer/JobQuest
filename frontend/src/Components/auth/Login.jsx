@@ -22,7 +22,7 @@ const Login = () => {
           // console.log(key);
           if(input[key]==="")
           { 
-              alert("All Fields are required ");
+              toast.error("All Fields are required ");
               return 
           }
           // console.log(input[key])
