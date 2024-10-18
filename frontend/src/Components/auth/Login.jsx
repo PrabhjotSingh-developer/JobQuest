@@ -19,13 +19,13 @@ const Login = () => {
     e.preventDefault()
     for(let key in input)
       {
-          // console.log(key);
+          
           if(input[key]==="")
           { 
               toast.error("All Fields are required ");
               return 
           }
-          // console.log(input[key])
+      
       }
       try {
       
@@ -45,7 +45,7 @@ const Login = () => {
         toast.error(error.response.data.message)
          console.log(error)
       }
-    console.log(input)
+  
   }
   return (
     <div className="flex items-center  justify-center mt-7 sm:mt-12 lg:mt-8">
