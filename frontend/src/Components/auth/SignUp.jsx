@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { USER_API_END_POINT } from "../../utils/Constant";
 import { toast } from "react-toastify";
+import { useDispatch,useSelector } from "react-redux";
 import axios from 'axios'
+import { setLoading } from "../../Redux/authSlice";
 const SignUp = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {loading} = useSelector(store=>store.authSlice)
   const [input, setInput] = useState({
     fullname: "",
     email: "",
@@ -35,10 +39,8 @@ const SignUp = () => {
     formData.append("role",input.role);
     if(input.file!=="")
       formData.append("file",input.file);
-
-
     try {
-      
+      dispatch(setLoading(true))
       const res = await axios.post(`${USER_API_END_POINT}/register`,formData,{
         headers:{
           "Content-Type":"multipart/form-data"
@@ -46,15 +48,18 @@ const SignUp = () => {
         withCredentials:true
       });
       
-      toast.success("Signup Successfull")
+      toast.success("Account created Successfully")
       if(res.data.success)
          navigate("/login")
 
     } catch (error) {
-      toast.error("Server not found")
+      toast.error(error.response.data.message)
        console.log(error)
     }
-    window.alert("sumbit successfullt")
+    finally{
+      dispatch(setLoading(false))
+      
+    }
   };
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -138,13 +143,13 @@ const SignUp = () => {
               />
             </div>
             <div className="flex gap-2">
-              <label htmlFor="employer">Employer</label>
+              <label htmlFor="student">Student</label>
               <input
                 type="radio"
                 name="role"
-                id="employer"
-                value="employer"
-                checked={input.role === "employer"}
+                id="student"
+                value="student"
+                checked={input.role === "student"}
                 onChange={changeEventHandler}
               />
             </div>
@@ -164,7 +169,7 @@ const SignUp = () => {
         <div>
           <input
             type="submit"
-            value="Register Now"
+            value={`${loading ? "Loading ...":"Sign Up"}`}
             className="bg-blue-700 text-white px-5 py-2 rounded-[20px] cursor-pointer mt-5"
           />
         </div>

@@ -13,6 +13,8 @@ import Login from "./Components/auth/Login.jsx";
 import SignUp from "./Components/auth/SignUp.jsx";
 import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import {Provider} from "react-redux"
+import store from "./Redux/store.js";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -26,8 +28,10 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <StrictMode>
    
-
-    <ToastContainer/>
+    <Provider store={store}>
+        <ToastContainer/>
     <RouterProvider router={router} />
+    </Provider>
+  
   </StrictMode>
 );

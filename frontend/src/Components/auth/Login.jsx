@@ -4,9 +4,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {toast } from 'react-toastify'
 import { USER_API_END_POINT } from "../../utils/Constant.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../Redux/authSlice.js";
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {loading} = useSelector(store=>store.authSlice)
+  
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -17,6 +21,7 @@ const Login = () => {
   };
   const submitHandler = async(e) =>{
     e.preventDefault()
+
     for(let key in input)
       {
           
@@ -28,7 +33,7 @@ const Login = () => {
       
       }
       try {
-      
+        dispatch(setLoading(true));
         const res = await axios.post(`${USER_API_END_POINT}/login`,input,{
           headers:{
             "Content-Type":"application/json"
@@ -36,7 +41,7 @@ const Login = () => {
           withCredentials:true
         });
         
-        toast.success("Signup Successfull")
+        toast.success("Login Successfull")
         if(res.data.success)
            navigate("/")
   
@@ -44,6 +49,9 @@ const Login = () => {
 
         toast.error(error.response.data.message)
          console.log(error)
+      } finally{
+        dispatch(setLoading(false));
+
       }
   
   }
@@ -99,13 +107,13 @@ const Login = () => {
               />
             </div>
             <div className="flex gap-2">
-              <label htmlFor="employer">Employer</label>
+              <label htmlFor="recruiter">Recruiter</label>
               <input
                 type="radio"
                 name="role"
-                id="employer"
-                value="employer"
-                checked={input.role === "employer"}
+                id="recruiter"
+                value="recruiter"
+                checked={input.role === "recruiter"}
                 onChange={changeEventHandler}
               />
             </div>
@@ -115,7 +123,7 @@ const Login = () => {
         <div>
           <input
             type="submit"
-            value="Register Now"
+            value={`${loading ? "Loading ...":"Login"}`}
             className="bg-blue-700 text-white px-5 py-2 rounded-[20px] cursor-pointer mt-5"
           />
         </div>
