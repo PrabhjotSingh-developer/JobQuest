@@ -15,10 +15,11 @@ import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import {Provider} from "react-redux"
 import store from "./Redux/store.js";
+import Home from "./Pages/Home.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route path="" />
+      <Route path="" element={<Home/>}/>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp/>} />
 

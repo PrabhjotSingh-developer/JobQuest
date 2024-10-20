@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showMenubar,setShowMenubar] = useState(false)
@@ -19,7 +20,7 @@ const Navbar = () => {
       </div>
       <div className="menuLink items-center flex gap-8 ">
         <ul className={`flex sm:flex-row flex-col gap-5 absolute left-0 top-[9%] md:static bg-white sm:w-auto w-[100%] px-5 py-10 sm:py-0 h-[100vh] sm:h-auto ${showMenubar?"left-0":"left-[-100%]"}`} style={{transition:"left .2s"}} >
-          <li>Home</li>
+          <li><NavLink to={""}>Home</NavLink></li>
           <li>Jobs</li>
           <li>Browse</li>
         </ul>
