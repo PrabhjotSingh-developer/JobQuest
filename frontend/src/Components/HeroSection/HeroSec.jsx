@@ -22,7 +22,7 @@ const HeroSec = () => {
         aperiam iusto molestiae?{" "}
       </p>
       <div className="border-2 md:w-[40%] bg-white mx-auto mt-6 flex rounded-md">
-           <input type="text" name="" id=""  className="bg-transparent w-[90%] outline-none h-[30px]" placeholder="Enter Your Dream Job Name"/>
+           <input type="text" name="" id=""  className="bg-transparent w-[90%] outline-none h-[30px] pl-2" placeholder="Enter Your Dream Job Name"/>
             <button className="bg-black text-white w-[10%] h-[30px] flex items-center justify-center"><IoSearch/></button>
       </div>
     </div>
