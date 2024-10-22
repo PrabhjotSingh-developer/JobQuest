@@ -1,18 +1,31 @@
-import React from 'react'
+import React from "react";
 import { NavLink } from "react-router-dom";
 const CategoryCarousel = () => {
-    const catCar = ["Frontend Devloper","Backend Developer","Full Stack Developer","Devops Engineer","Data Science","Ui/Ux designer"];
+  const catCar = [
+    "Frontend Devloper",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Devops Engineer",
+    "Data Science",
+    "Ui/Ux designer",
+  ];
   return (
-    <div className='w-[100%] overflow-y-hidden'>
-        <div className='w-[60%] mx-auto relative'>
-                <div className='gap-10 flex  absolute'>
-                       {
-                        catCar.map((item,index)=>(<NavLink className="w-[fit-content]">{item}</NavLink>))
-                       }
-                </div>
-        </div>
-    </div>
-  )
-}
+    <div className="w-[100%] mt-4">
+      <div className="w-[800px] overflow-x-hidden flex justify-center mx-auto h-[100px] bg-red-400">
+        <div className="w-[100%]  px-[20px]">
+          <div className="  relative flex gap-10 ">
+            {catCar.map((item, index) => (
 
-export default CategoryCarousel
+              <div className={`w-[300px] left-[${5*index}%]`}>
+                {console.log(index)}
+                <NavLink>{item}</NavLink>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CategoryCarousel;
