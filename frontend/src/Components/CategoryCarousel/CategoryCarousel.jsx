@@ -49,13 +49,19 @@ const CategoryCarousel = () => {
   }
   return (
     <div className="w-[100%] mt-4 flex items-center justify-center ">
-      <div className="grid grid-cols-6 gap-10 overflow-scroll w-[80%] mx-auto absolute bottom-0">
+      <button onClick={prevClick}>
+        prev
+      </button>
+      <div className="maindiv grid grid-cols-6 gap-10 overflow-scroll w-[80%] mx-auto   relative h-[100px] place-items-center" style={{scrollbarWidth:"none"}}>
         {catCar.map((item, index) => (
-          <div className={`grid-items bg-red-400 w-[300px] top-0  absolute`} style={{left:`${index*300}px`}}>
+          <div className={`grid-items w-[300px] absolute flex items-center justify-center `} style={{left:`${index*300}px`}}>
             <Link>{item}</Link>
           </div>
         ))}
       </div>
+      <button className="next">
+        next
+      </button>
     </div>
   );
 };
